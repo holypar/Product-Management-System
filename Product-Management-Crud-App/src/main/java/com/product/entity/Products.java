@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-// this is for the table
+// this creates a table in mysql workbench
 @Entity
 @Table(name = "product_dtls")
 public class Products {
@@ -17,7 +17,7 @@ public class Products {
 	private long id;
 
 	@Column(name = "prodcut_name")
-	private String productName;
+	private String productName; // must match in html file!
 
 	private String description;
 
