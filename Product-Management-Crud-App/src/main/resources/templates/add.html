@@ -14,7 +14,7 @@
 	<!-- start navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Product Management System</a>
+			<a class="navbar-brand" href="/">Product Management System</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -24,7 +24,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
+						aria-current="page" href="/">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 
 				</ul>
@@ -53,31 +53,31 @@
 						<form th:action="@{/save_products}" method="post">
 							<div class="mb-3">
 								<label for="exampleInputEmail1" class="form-label">Enter
-									Product Name </label> <input type="text" class="form-control"
+									Product Name </label> <input required type="text" class="form-control"
 									id="exampleInputEmail1" aria-describedby="emailHelp"
 									name="productName">
 							</div>
 							<div class="mb-3">
 								<label for="exampleInputEmail1" class="form-label">Description
-								</label> <input type="text" class="form-control" id="exampleInputEmail1"
+								</label> <input  required type="text" class="form-control" id="exampleInputEmail1"
 									aria-describedby="emailHelp" name="description">
 							</div>
 							<div class="mb-3">
 								<label for="exampleInputEmail1" class="form-label">Price
-								</label> <input type="number" class="form-control"
+								</label> <input required type="number" class="form-control"
 									id="exampleInputEmail1" aria-describedby="emailHelp"
 									name="price">
 							</div>
 							<div class="mb-3">
 								<label for="exampleInputEmail1" class="form-label">Quantity
-								</label> <input type="number" class="form-control"
+								</label> <input required type="number" class="form-control"
 									id="exampleInputEmail1" aria-describedby="emailHelp"
 									name="quantity">
 							</div>
 							<button type="submit" class="btn btn-primary">Add
 								Product</button>
 						</form>
-
+						<a href="/" class="btn btn-secondary mt-2">Cancel</a>
 
 					</div>
 
