@@ -24,7 +24,12 @@ public class HomeController {
 	@Autowired
 	private ProductRepository productRepo;
 
-	@GetMapping("/") // the route
+	@GetMapping("/")
+	public String loadHome() {
+		return "home";
+	}
+
+	@GetMapping("/search") // the route
 	public String home(Model m) {
 		List<Products> list = productRepo.findAll();
 		m.addAttribute("all_products", list); // when we call the list in html call it by all_products
@@ -45,12 +50,24 @@ public class HomeController {
 		return "edit";
 	}
 
+	@GetMapping("/detail/{id}")
+	public String detailForm(@PathVariable(value = "id") long id, Model m) {
+		Optional<Products> product = productRepo.findById(id);
+		Products pro = product.get();
+		m.addAttribute("product", pro);
+		return "detail";
+	}
+
 	@PostMapping("/save_products")
 	public String saveProducts(@ModelAttribute Products products, HttpSession session) {
 
 		productRepo.save(products);
+		List<Products> list = productRepo.findAll();
+		Products lastAdded = list.get(list.size() - 1);
+		long lastId = lastAdded.getId();
+		String s = String.valueOf(lastId);
 		session.setAttribute("msg", "Product Added Successfuly");
-		return "redirect:/load_form";
+		return "redirect:/detail/" + s;
 	}
 
 	@PostMapping("/update_products")
@@ -58,7 +75,7 @@ public class HomeController {
 
 		productRepo.save(products);
 		session.setAttribute("msg", "Product Updated Successfuly");
-		return "redirect:/";
+		return "redirect:/search";
 	}
 
 	@GetMapping("/delete/{id}")
@@ -66,7 +83,7 @@ public class HomeController {
 		productRepo.deleteById(id);
 		session.setAttribute("msg", "Product Deleted Successfuly");
 
-		return "redirect:/";
+		return "redirect:/search";
 
 	}
 
