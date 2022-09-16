@@ -28,15 +28,15 @@
 	<div class="container p-5">
 		<div class="row">
 			<div class="col-md-8 offset-md-2">
-				<div class="card">
+				<div class="card bg-dark">
 					<div th:if="${session.msg}">
-						<h5 class="text-center text-success" th:text="${session.msg}"></h5>
+						<h5 class="text-center text-success bg-dark" th:text="${session.msg}"></h5>
 						<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
 					</div>
 					<div class="card-header bg-dark">
 						<a href="/load_form" class="btn btn-success rounded-pill">Add Product</a>
 					</div>
-					<div class="card-body bg-light">
+					<div class="card-body bg-dark">
 						<table class="table table-dark table-bordered">
 							<thead class="table-dark">
 								<tr>

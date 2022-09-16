@@ -25,13 +25,14 @@
 	</nav>
 
 	<!-- end navbar  -->
+
 	<div class="container p-4">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
-				<div class="card">
+				<div class="card bg-dark text-light">
 					<div class="card-body">
 
-						<h4 class="text-center text-dark">Edit Products Form</h4>
+						<h4 class="text-center text-light">EDIT PRODUCT</h4>
 						<div th:if="${session.msg}">
 							<h5 class="text-center text-success" th:text="${session.msg}"></h5>
 							<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
