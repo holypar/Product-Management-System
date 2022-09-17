@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.product.entity.Products;
-import com.product.repository.ProductRepository;
+import com.product.service.ProductService;
 
 // basically a router like django
 
@@ -22,7 +23,8 @@ import com.product.repository.ProductRepository;
 public class HomeController {
 
 	@Autowired
-	private ProductRepository productRepo;
+	private ProductService productRepo; // allows me to use JPA
+//	private ProductService service;
 
 	@GetMapping("/")
 	public String loadHome() {
@@ -30,8 +32,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/search") // the route
-	public String home(Model m) {
-		List<Products> list = productRepo.findAll();
+	public String home(Model m, @Param("keyword") String keyword) {
+		List<Products> list = productRepo.findAll(keyword);
 		m.addAttribute("all_products", list); // when we call the list in html call it by all_products
 		// add total inventory value here
 		// add total # of prods
@@ -46,7 +48,7 @@ public class HomeController {
 
 	@GetMapping("/edit_form/{id}")
 	public String editForm(@PathVariable(value = "id") long id, Model m) {
-		Optional<Products> product = productRepo.findById(id);
+		Optional<Products> product = Optional.ofNullable(productRepo.findById(id));
 		Products pro = product.get();
 		m.addAttribute("product", pro);
 		return "edit";
@@ -54,7 +56,7 @@ public class HomeController {
 
 	@GetMapping("/detail/{id}")
 	public String detailForm(@PathVariable(value = "id") long id, Model m) {
-		Optional<Products> product = productRepo.findById(id);
+		Optional<Products> product = Optional.ofNullable(productRepo.findById(id));
 		Products pro = product.get();
 		m.addAttribute("product", pro);
 		return "detail";
@@ -64,7 +66,7 @@ public class HomeController {
 	public String saveProducts(@ModelAttribute Products products, HttpSession session) {
 
 		productRepo.save(products);
-		List<Products> list = productRepo.findAll();
+		List<Products> list = productRepo.findAll("");
 		Products lastAdded = list.get(list.size() - 1);
 		long lastId = lastAdded.getId();
 		String s = String.valueOf(lastId);
@@ -76,7 +78,7 @@ public class HomeController {
 	public String updateProducts(@ModelAttribute Products products, HttpSession session) {
 
 		productRepo.save(products);
-		List<Products> list = productRepo.findAll();
+		List<Products> list = productRepo.findAll("");
 		Products lastAdded = list.get(list.size() - 1);
 		long lastId = lastAdded.getId();
 		String s = String.valueOf(lastId);
