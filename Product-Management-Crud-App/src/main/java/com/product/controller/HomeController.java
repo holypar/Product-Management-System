@@ -83,14 +83,13 @@ public class HomeController {
 		return "redirect:/detail/" + s;
 	}
 
-	@PostMapping("/update_products")
-	public String updateProducts(@ModelAttribute Products products, HttpSession session) {
+	@PostMapping("/update_products/{id}")
+	public String updateProducts(@PathVariable(value = "id") long id, @ModelAttribute Products products,
+			HttpSession session) {
 
 		productRepo.save(products);
-		List<Products> list = productRepo.findAll("");
-		Products lastAdded = list.get(list.size() - 1);
-		long lastId = lastAdded.getId();
-		String s = String.valueOf(lastId);
+
+		String s = String.valueOf(id);
 		session.setAttribute("msg", "Product UPDATED Successfuly");
 		return "redirect:/detail/" + s;
 	}
@@ -105,6 +104,9 @@ public class HomeController {
 
 	@GetMapping("/bulk_delete")
 	public String deleteBulk(@RequestParam("pid") Long[] pids) {
+		if (pids == null) {
+			return "redirect:/search";
+		}
 		productRepo.bulkDelete(pids);
 		return "redirect:/search";
 
