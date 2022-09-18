@@ -27,7 +27,15 @@ public class HomeController {
 //	private ProductService service;
 
 	@GetMapping("/")
-	public String loadHome() {
+	public String loadHome(Model m) {
+		List<Products> list = productRepo.findAll("");
+		int totalValue = 0;
+		int productCount = list.size();
+		for (int i = 0; i < list.size(); i++) {
+			totalValue += Integer.parseInt(list.get(i).getPrice());
+		}
+		m.addAttribute("totalValue", totalValue);
+		m.addAttribute("productCount", productCount);
 		return "home";
 	}
 

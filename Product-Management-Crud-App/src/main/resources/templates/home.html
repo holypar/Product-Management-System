@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <link
@@ -13,17 +13,24 @@
 	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
 	rel="stylesheet">
 
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <title>Home</title>
 </head>
-<body style="background-color: #FBF2CF; font-family: 'Source Sans Pro', sans-serif;">
+<body
+	style="background-color: #FBF2CF; font-family: 'Source Sans Pro', sans-serif;">
 	<div
 		style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-
-		<h1 class="animate__animated animate__zoomIn display-3 animate__delay-0.2s">Product Management System</h1>
+		<span>SYSTEM CONTAINS </span> 
+		<span
+			class="text-info fw-bold" th:text="${productCount}"></span>
+			<span>PRODUCTS WORTH</span>
+			<span class="text-success fw-bold">$</span>
+			<span
+			class="text-success fw-bold" th:text="${totalValue}"></span>
+		<h1
+			class="animate__animated animate__zoomIn display-3 animate__delay-0.2s">Product
+			Management System</h1>
 		<div class="row">
 			<div class="col text-center">
 				<a href="/search" class="btn-sm btn-dark mt-2 text-decoration-none">SEARCH
