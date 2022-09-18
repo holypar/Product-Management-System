@@ -32,4 +32,10 @@ public class ProductService {
 		repo.deleteById(id);
 	}
 
+	public void bulkDelete(Long[] ids) {
+		for (int i = 0; i < ids.length; i++) {
+			repo.deleteById(ids[i]);
+		}
+	}
+
 }

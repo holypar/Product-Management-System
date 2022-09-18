@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.product.entity.Products;
 import com.product.service.ProductService;
@@ -98,7 +99,13 @@ public class HomeController {
 	public String deleteProducts(@PathVariable(value = "id") long id, HttpSession session) {
 		productRepo.deleteById(id);
 		session.setAttribute("msg", "Product DELETED Successfuly");
+		return "redirect:/search";
 
+	}
+
+	@GetMapping("/bulk_delete")
+	public String deleteBulk(@RequestParam("pid") Long[] pids) {
+		productRepo.bulkDelete(pids);
 		return "redirect:/search";
 
 	}
