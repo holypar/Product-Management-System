@@ -30,14 +30,24 @@ public class HomeController {
 	@GetMapping("/")
 	public String loadHome(Model m) {
 		List<Products> list = productRepo.findAll("");
+		int productValue = 0;
+		int productCount = 0;
 		int totalValue = 0;
-		int productCount = list.size();
+		int totalCount = 0;
 		for (int i = 0; i < list.size(); i++) {
-			totalValue += Integer.parseInt(list.get(i).getPrice());
+			productValue = Integer.parseInt(list.get(i).getPrice());
+			productCount = Integer.parseInt(list.get(i).getQuantity());
+			totalCount += productCount;
+			totalValue += (productValue * productCount);
 		}
 		m.addAttribute("totalValue", totalValue);
-		m.addAttribute("productCount", productCount);
+		m.addAttribute("productCount", totalCount);
 		return "home";
+	}
+
+	@GetMapping("/error")
+	public String loadError() {
+		return "redirect:/search";
 	}
 
 	@GetMapping("/search") // the route
